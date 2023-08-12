@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+        }
+        .wrapper #digital-clock{
+            background-color: white;
+            font-size: 2rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 2px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <title>Clock Javascript</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div id="digital-clock">
+            <div class="display">12 : 30 : 06</div>
+        </div>
+    </div>
+    
+    <script>
+        setInterval(() => {
+            const digitalClock = document.querySelector("#digital-clock .display");
+            let date = new Date();
+            let hours = date.getHours();
+            let minutes = date.getMinutes();
+            let seconds = date.getSeconds();
+            let dayNight = "AM";
+            
+            if(hours > 12){
+                dayNight = "PM";
+                hours = hours - 12;
+            }
+            if(hours < 10){
+                hours = "0" + hours;
+            }
+            if(minutes < 10){
+                minutes = "0" + minutes;
+            }
+            if(seconds < 10){
+                seconds = "0" + seconds;
+            }
+        
+            digitalClock.textContent = `${hours} : ${minutes} : ${seconds}  ${dayNight}`;
+        })
+    </script>
+</body>
+</html>
