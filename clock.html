@@ -21,11 +21,214 @@
             justify-content: center;
             align-items: center;
         }
+        #analog-clock{
+            background-color: white;
+            height: 250px;
+            width: 250px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        #analog-clock .label{
+            --numPosition : 0deg;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            padding-top: 12px;
+            transform: translate(-50%, -50%) rotate(var(--numPosition));
+            text-align: center;
+            width: 100%;
+            height: 100%;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        #analog-clock .label.number1{
+            --numPosition : 30deg;
+        }
+        #analog-clock .number1 span{
+            display: inline-block;
+            transform: rotate(-30deg);
+        }
+        
+        #analog-clock .label.number2{
+            --numPosition : 60deg;
+        }
+        #analog-clock .number2 span{
+            display: inline-block;
+            transform: rotate(-60deg);
+        }
+        
+        #analog-clock .label.number3{
+            --numPosition : 90deg;
+        }
+        #analog-clock .number3 span{
+            display: inline-block;
+            transform: rotate(-90deg);
+        }
+        
+        #analog-clock .label.number4{
+            --numPosition : 120deg;
+        }
+        #analog-clock .number4 span{
+            display: inline-block;
+            transform: rotate(-120deg);
+        }
+        
+        #analog-clock .label.number5{
+            --numPosition : 150deg;
+        }
+        #analog-clock .number5 span{
+            display: inline-block;
+            transform: rotate(-150deg);
+        }
+        
+        #analog-clock .label.number6{
+            --numPosition : 180deg;
+        }
+        #analog-clock .number6 span{
+            display: inline-block;
+            transform: rotate(-180deg);
+        }
+        
+        #analog-clock .label.number7{
+            --numPosition : 210deg;
+        }
+        #analog-clock .number7 span{
+            display: inline-block;
+            transform: rotate(-210deg);
+        }
+        
+        #analog-clock .label.number8{
+            --numPosition : 240deg;
+        }
+        #analog-clock .number8 span{
+            display: inline-block;
+            transform: rotate(-240deg);
+        }
+        
+        #analog-clock .label.number9{
+            --numPosition : 270deg;
+        }
+        #analog-clock .number9 span{
+            display: inline-block;
+            transform: rotate(-270deg);
+        }
+        
+        #analog-clock .label.number10{
+            --numPosition : 300deg;
+        }
+        #analog-clock .number10 span{
+            display: inline-block;
+            transform: rotate(-300deg);
+        }
+        
+        #analog-clock .label.number11{
+            --numPosition : 330deg;
+        }
+        #analog-clock .number11 span{
+            display: inline-block;
+            transform: rotate(-330deg);
+        }
+        
+        .jarum{
+            background-color: black;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(180deg);
+            
+            z-index: 1000;
+        }
+        
+        .jarum .jam{
+            width: 8px;
+            height: 75px;
+            border-radius: 5px;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%);
+            transform-origin: top;
+            background-color: black;
+            position: absolute;
+            z-index: 2000;
+        }
+        .jarum .menit{
+            width: 5px;
+            height: 100px;
+            border-radius: 5px;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%);
+            transform-origin: top;
+            background-color: black;
+            position: absolute;
+            z-index: 3000;
+        }
+        .jarum .detik{
+            width: 2px;
+            height: 115px;
+            border-radius: 5px;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%);
+            transform-origin: top;
+            background-color: red;
+            position: absolute;
+            z-index: 3000;
+        }
     </style>
     <title>Clock Javascript</title>
 </head>
 <body>
     <div class="wrapper">
+        <div id="analog-clock">
+            <div class="label number1">
+                <span>1</span>
+            </div>
+            <div class="label number2">
+                <span>2</span>
+            </div>
+            <div class="label number3">
+                <span>3</span>
+            </div>
+            <div class="label number4">
+                <span>4</span>
+            </div>
+            <div class="label number5">
+                <span>5</span>
+            </div>
+            <div class="label number6">
+                <span>6</span>
+            </div>
+            <div class="label number7">
+                <span>7</span>
+            </div>
+            <div class="label number8">
+                <span>8</span>
+            </div>
+            <div class="label number9">
+                <span>9</span>
+            </div>
+            <div class="label number10">
+                <span>10</span>
+            </div>
+            <div class="label number11">
+                <span>11</span>
+            </div>
+            <div class="label number12">
+                <span>12</span>
+            </div>
+            
+            <div class="jarum">
+                <span class="jam"></span>
+                <span class="menit"></span>
+                <span class="detik"></span>
+            </div>
+        </div>
         <div id="digital-clock">
             <div class="display">12 : 30 : 06</div>
         </div>
@@ -34,14 +237,27 @@
     <script>
         setInterval(() => {
             const digitalClock = document.querySelector("#digital-clock .display");
+            const jarumJam = document.querySelector("#analog-clock .jarum .jam");
+            const jarumMenit = document.querySelector("#analog-clock .jarum .menit");
+            const jarumDetik = document.querySelector("#analog-clock .jarum .detik");
             let date = new Date();
             let hours = date.getHours();
             let minutes = date.getMinutes();
             let seconds = date.getSeconds();
             let dayNight = "AM";
             
-            if(hours > 12){
+            let rotasiDetik = (seconds / 60) * 360;
+            let rotasiMenit = (minutes / 60) * 360;
+            let rotasiJam = (hours / 12) * 360;
+            
+            jarumDetik.style.transform = `rotate(${rotasiDetik}deg)`;
+            jarumMenit.style.transform = `rotate(${rotasiMenit}deg)`;
+            jarumJam.style.transform = `rotate(${rotasiJam}deg)`;
+            
+            if(hours > 11){
                 dayNight = "PM";
+            }
+            if(hours > 12){
                 hours = hours - 12;
             }
             if(hours < 10){
@@ -55,7 +271,10 @@
             }
         
             digitalClock.textContent = `${hours} : ${minutes} : ${seconds}  ${dayNight}`;
+            
         })
+        
+        
     </script>
 </body>
 </html>
